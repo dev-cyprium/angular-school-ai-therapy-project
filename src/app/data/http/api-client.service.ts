@@ -16,6 +16,9 @@ export class ApiClientService {
   }
 
   get<T>(path: string) {
+    path = this.cleanPath(path);
+    this.loading$.next(true);
+
     return this.http
       .get<T>(`${this.baseApiUrl}/${path}`)
       .pipe(lowercaseJsonKeys())
@@ -24,5 +27,9 @@ export class ApiClientService {
           this.loading$.next(false);
         })
       );
+  }
+
+  private cleanPath(path: string) {
+    return path.replace(/^\/+/, '');
   }
 }
