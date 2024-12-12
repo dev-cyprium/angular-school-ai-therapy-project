@@ -1,0 +1,36 @@
+<div class="py-24 bg-gray-800 sm:py-32">
+  <div class="px-6 mx-auto max-w-7xl lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-semibold text-indigo-300 text-base/7">Therapy Plans</h2>
+      <p
+        class="mt-2 text-5xl font-semibold tracking-tight text-white text-balance sm:text-6xl"
+      >
+        Plans that grow with you
+      </p>
+    </div>
+    <p
+      class="max-w-2xl mx-auto mt-6 text-lg font-medium text-center text-gray-300 text-pretty sm:text-xl/8"
+    >
+      Choose an affordable plan that’s packed with the best features for
+      enhancing your therapy experience, fostering personal growth, and
+      achieving your wellness goals.
+    </p>
+    <div
+      class="flex items-center justify-center w-full h-40"
+      *ngIf="isLoading$ | async"
+    >
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <div
+      *ngIf="!(isLoading$ | async) && plans.length > 0"
+      class="grid max-w-md grid-cols-1 mx-auto mt-16 isolate gap-y-8 gap-x-4 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+    >
+      <app-pricing-card
+        [plan]="plan"
+        *ngFor="let plan of plans"
+      ></app-pricing-card>
+    </div>
+  </div>
+</div>
