@@ -1,28 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PricingPlan } from './types';
-import { BehaviorSubject, finalize } from 'rxjs';
-import { lowercaseJsonKeys } from '../data';
+import { BehaviorSubject } from 'rxjs';
+import { ApiClientService } from '../http/api-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PricingService {
-  private baseApiUrl = 'http://localhost:8080';
   private loadingSubject = new BehaviorSubject<boolean>(false);
-  public loading$ = this.loadingSubject.asObservable();
+  public loading$ = this.api.loading$;
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiClientService) {}
 
   getPricingPlans() {
     this.loadingSubject.next(true);
-    return this.http
-      .get<PricingPlan[]>(`${this.baseApiUrl}/pricing`)
-      .pipe(lowercaseJsonKeys())
-      .pipe(
-        finalize(() => {
-          this.loadingSubject.next(false);
-        })
-      );
+    return this.api.get<PricingPlan[]>('/pricing');
   }
 }
