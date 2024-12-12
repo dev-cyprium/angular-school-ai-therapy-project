@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PricingCardComponent } from '../../../shared/pricing-card/pricing-card.component';
 import { PricingService } from '../../../data/pricing/pricing.service';
 import { PricingPlan } from '../../../data/pricing/types';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from '../../../shared/loading-spinner/loading-spinner.component';
-import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pricing',
